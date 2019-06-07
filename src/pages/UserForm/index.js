@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Form, Input, Scope } from 'unform';
+import * as Yup from 'yup';
 import api from '../../services/api';
+
+const schema = Yup.object().shape({
+  name: Yup.string().required('Nome obrigatório')
+})
 
 export default function UserForm({ history, match }) {
   const [data, setData] = useState({});
@@ -24,7 +29,7 @@ export default function UserForm({ history, match }) {
   }
 
   return (
-    <Form initialData={data} onSubmit={handleSubmit}>
+    <Form schema={schema} initialData={data} onSubmit={handleSubmit}>
       <Input name="name" label="Nome" />
       <Input name="email" label="Email" />
 
