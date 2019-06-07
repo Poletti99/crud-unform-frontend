@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import api from '../../services/api';
 
 export default function UserList() {
@@ -15,31 +16,34 @@ export default function UserList() {
   }, [])
 
   return (
-    <table>
-      <thead>
-        <tr>
-          <th>Nome</th>
-          <th>Email</th>
-          <th>Rua</th>
-          <th>Nº</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-        {
-          users.map(user => (
-            <tr key={user._id}>
-              <td>{user.name}</td>
-              <td>{user.email}</td>
-              <td>{user.address.street}</td>
-              <td>{user.address.number}</td>
-              <td>
-                <a href="">Editar</a>
-              </td>
-            </tr>
-          ))
-        }
-      </tbody>
-    </table>
+    <>
+      <Link to="/users/create">Criar usuário</Link>
+      <table>
+        <thead>
+          <tr>
+            <th>Nome</th>
+            <th>Email</th>
+            <th>Rua</th>
+            <th>Nº</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            users.map(user => (
+              <tr key={user._id}>
+                <td>{user.name}</td>
+                <td>{user.email}</td>
+                <td>{user.address.street}</td>
+                <td>{user.address.number}</td>
+                <td>
+                  <Link to={`/users/edit/${user._id}`}>Editar</Link>
+                </td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    </>
   )
 }
