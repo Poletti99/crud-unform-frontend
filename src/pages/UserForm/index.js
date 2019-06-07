@@ -9,21 +9,21 @@ const schema = Yup.object().shape({
 
 export default function UserForm({ history, match }) {
   const [data, setData] = useState({});
+  const { id } = match.params;
 
   useEffect(() => {
     async function loadData() {
-      const { id } = match.params;
       const response = await api.get(`/users/${id}`);
       setData(response.data);
     }
 
-    if (match.params.id) {
+    if (id) {
       loadData()
     }
-  }, [match.params.id])
+  }, [id])
 
   async function handleSubmit(data) {
-    await api.postOrPut('/users', match.params.id, data);
+    await api.postOrPut('/users', id, data);
 
     history.push('/users');
   }
